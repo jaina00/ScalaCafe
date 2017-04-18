@@ -2,10 +2,10 @@
   * Created by abhishek on 18/04/17.
   */
 class Cafe {
-  def getTotal(items: List[FoodItem], addServiceCharge: Boolean): BigDecimal = {
+  def getTotal(items: List[FoodItem], applyServiceCharge: Boolean): BigDecimal = {
     val total = items.map(_.price).sum
 
-    addServiceCharge match {
+    applyServiceCharge match {
       case true =>
         val serviceChargeRate = getServiceChargeRate(items)
         val serviceCharge: BigDecimal = if ((serviceChargeRate * total) > 20) 20.0 else serviceChargeRate * total
@@ -15,7 +15,7 @@ class Cafe {
   }
 
   private def getServiceChargeRate(items: List[FoodItem]) = {
-    val anyFoodItems = items.exists(!_.isDrink) // Check if there is a food item
+    val anyFoodItems = items.exists(!_.isDrink) // Check if there is any food item
     val anyHotFoodItem = items.exists(x => {
       !x.isDrink && x.isHotFood
     }) // Check if there is any hot food item
